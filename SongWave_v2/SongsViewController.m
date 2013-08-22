@@ -1,48 +1,52 @@
 //
-//  ViewController.m
+//  SongsViewController.m
 //  SongWave_v2
 //
-//  Created by Brian Dinh on 8/17/13.
+//  Created by Brian Dinh on 8/19/13.
 //  Copyright (c) 2013 Brian Dinh. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "FUIButton.h"
-#import "UIColor+FlatUI.h"
-#import "UIFont+FlatUI.h"
-#import "UINavigationBar+FlatUI.h"
+#import "SongsViewController.h"
 #import "SWRevealViewController.h"
+#import "SideBarViewController.h"
+#import "UIColor+FlatUI.h"
 #import "UIBarButtonItem+FlatUI.h"
 
-@interface ViewController (){
+@interface SongsViewController (){
     
-    __weak IBOutlet FUIButton *button;
-    __weak IBOutlet UIBarButtonItem *sideBarButton;
 }
 
 @end
 
-@implementation ViewController
+@implementation SongsViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"SongWave";
-    self.view.backgroundColor = [UIColor cloudsColor];
+    self.title = @"Songs";
     
-    button.buttonColor = [UIColor alizarinColor];
-    button.shadowColor = [UIColor pomegranateColor];
-    button.shadowHeight = 3.0f;
-    button.cornerRadius = 6.0f;
-    button.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    [button setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
     
-    [self.navigationController.navigationBar configureFlatNavigationBarWithColor:[UIColor midnightBlueColor]];
-
+    
+    UIBarButtonItem *sideBarButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"menu"
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self
+                                   action:@selector(flipView)];
+    self.navigationItem.leftBarButtonItem = sideBarButton;
+    
     [self.navigationItem.leftBarButtonItem configureFlatButtonWithColor:[UIColor alizarinColor]
                                                        highlightedColor:[UIColor pomegranateColor]
                                                            cornerRadius:3];
+
     
     // Set the side bar button action. When it's tapped, it'll show up the sidebar.
     sideBarButton.target = self.revealViewController;
@@ -50,6 +54,7 @@
     //sideBarButton.image = [UIImage imageNamed:@"sidebarbutton.png"];
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+
     
 }
 
